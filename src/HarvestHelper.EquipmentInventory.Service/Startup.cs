@@ -14,6 +14,8 @@ using HarvestHelper.EquipmentInventory.Service.Entities;
 using Polly;
 using Polly.Timeout;
 using HarvestHelper.Common.Identity;
+using GreenPipes;
+using HarvestHelper.EquipmentInventory.Service.Exceptions;
 
 namespace HarvestHelper.EquipmentInventory.Service
 {
@@ -32,7 +34,11 @@ namespace HarvestHelper.EquipmentInventory.Service
             services.AddMongo()
                     .AddMongoRepository<EquipmentInventoryItem>("equipmentinventoryitems")
                     .AddMongoRepository<EquipmentItem>("equipmentitems")
-                    .AddMassTransitWithRabbitMq()
+                    .AddMassTransitWithRabbitMq(retryConfigurator =>
+                    {
+                        retryConfigurator.Interval(3, TimeSpan.FromSeconds(5));
+                        retryConfigurator.Ignore(typeof(UnknownEquipmentException));
+                    })
                     .AddJwtBearerAuthentication();
 
             services.AddControllers();
