@@ -36,6 +36,62 @@
                 "${workspaceFolder}/src/HarvestHelper.Farm.Service/HarvestHelper.Farm.Service.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "harvesthelperequipmentinventory:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/src/HarvestHelper.EquipmentInventory.Service/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/HarvestHelper.EquipmentInventory.Service/HarvestHelper.EquipmentInventory.Service.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "harvesthelperequipmentinventory:latest",
+                "dockerfile": "${workspaceFolder}/src/HarvestHelper.EquipmentInventory.Service/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/HarvestHelper.EquipmentInventory.Service/HarvestHelper.EquipmentInventory.Service.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/HarvestHelper.EquipmentInventory.Service/HarvestHelper.EquipmentInventory.Service.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/HarvestHelper.EquipmentInventory.Service/HarvestHelper.EquipmentInventory.Service.csproj"
+            }
         }
     ]
 }
