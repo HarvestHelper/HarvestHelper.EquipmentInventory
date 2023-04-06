@@ -34,3 +34,12 @@ $cosmosDbConnString="[Connection string]"
 $serviceBusConnString="[Connection string]"
 docker run -it --rm -p 5004:5004 --name equipmentinventory -e MongoDbSettings__ConnectionString=$cosmosDbConnString -e ServiceBusSettings__ConnectionString=$serviceBusConnString -e ServiceSettings__MessageBroker="SERVICEBUS" harvesthelper.equipmentinventory:$version
 ```
+
+## Publishing the docker image
+```powershell
+$version="1.0.3"
+$appname="harvesthelper"
+az acr login --name $appname
+docker tag harvesthelper.equipmentinventory:$version "$appname.azurecr.io/harvesthelper.equipmentinventory:$version"
+docker push "$appname.azurecr.io/harvesthelper.equipmentinventory:$version"
+```
