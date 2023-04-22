@@ -35,11 +35,7 @@ namespace HarvestHelper.EquipmentInventory.Service
             services.AddMongo()
                     .AddMongoRepository<EquipmentInventoryItem>("equipmentinventoryitems")
                     .AddMongoRepository<EquipmentItem>("equipmentitems")
-                    .AddMassTransitWithMessageBroker(Configuration, retryConfigurator =>
-                    {
-                        retryConfigurator.Interval(3, TimeSpan.FromSeconds(5));
-                        retryConfigurator.Ignore(typeof(UnknownEquipmentException));
-                    })
+                    .AddMassTransitWithMessageBroker(Configuration)
                     .AddJwtBearerAuthentication();
 
             services.AddControllers();
