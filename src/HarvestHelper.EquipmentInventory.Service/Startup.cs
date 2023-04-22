@@ -16,6 +16,7 @@ using Polly.Timeout;
 using HarvestHelper.Common.Identity;
 using GreenPipes;
 using HarvestHelper.EquipmentInventory.Service.Exceptions;
+using HarvestHelper.Common.HealthChecks;
 
 namespace HarvestHelper.EquipmentInventory.Service
 {
@@ -46,6 +47,9 @@ namespace HarvestHelper.EquipmentInventory.Service
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HarvestHelper.EquipmentInventory.Service", Version = "v1" });
             });
+
+             services.AddHealthChecks()
+                    .AddMongoDb();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +73,7 @@ namespace HarvestHelper.EquipmentInventory.Service
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHarvestHelperHealthChecks();
             });
         }
     }
