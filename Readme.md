@@ -15,7 +15,7 @@ dotnet nuget push ..\packages\HarvestHelper.EquipmentInventory.Contracts.$versio
 
 ## Build the docker image
 ```powershell
-$version="1.0.3"
+$version="1.0.4"
 $env:GH_OWNER="HarvestHelper"
 $env:GH_PAT="[PAT]"
 docker build --secret id=GH_OWNER --secret id=GH_PAT -t harvesthelper.equipmentinventory:$version .
@@ -24,12 +24,12 @@ docker build --secret id=GH_OWNER --secret id=GH_PAT -t harvesthelper.equipmenti
 ## Run the docker image
 ### local
 ```powershell
-$version="1.0.3"
+$version="1.0.4"
 docker run -it --rm -p 5004:5004 --name equipmentinventory -e MongoDbSettings__Host=mongo -e RabbitMQSettings__Host=rabbitmq --network=harvesthelperinfra_default harvesthelper.equipmentinventory:$version
 ```
 ### cloud
 ```powershell
-$version="1.0.3"
+$version="1.0.4"
 $cosmosDbConnString="[Connection string]"
 $serviceBusConnString="[Connection string]"
 docker run -it --rm -p 5004:5004 --name equipmentinventory -e MongoDbSettings__ConnectionString=$cosmosDbConnString -e ServiceBusSettings__ConnectionString=$serviceBusConnString -e ServiceSettings__MessageBroker="SERVICEBUS" harvesthelper.equipmentinventory:$version
@@ -37,10 +37,13 @@ docker run -it --rm -p 5004:5004 --name equipmentinventory -e MongoDbSettings__C
 
 ## Publishing the docker image
 ```powershell
-$version="1.0.3"
+$version="1.0.4"
 $appname="harvesthelper"
+
 az acr login --name $appname
+
 docker tag harvesthelper.equipmentinventory:$version "$appname.azurecr.io/harvesthelper.equipmentinventory:$version"
+
 docker push "$appname.azurecr.io/harvesthelper.equipmentinventory:$version"
 ```
 
