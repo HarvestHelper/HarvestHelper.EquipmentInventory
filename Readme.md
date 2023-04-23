@@ -43,3 +43,37 @@ az acr login --name $appname
 docker tag harvesthelper.equipmentinventory:$version "$appname.azurecr.io/harvesthelper.equipmentinventory:$version"
 docker push "$appname.azurecr.io/harvesthelper.equipmentinventory:$version"
 ```
+
+## Create the kubernetes namespace
+```powershell
+$namespace="equipmentinventory"
+kubectl create namespace $namespace
+```
+
+## Create the kubernetes pods
+```powershell
+$namespace="equipmentinventory"
+
+kubectl apply -f .\kubernetes\equipmentInventory.yaml -n $namespace
+```
+
+## Create the azure managed identity and granting access to keyvault secrets
+```powershell
+$appname="harvesthelper"
+$namespace="equipmentinventory"
+
+az identity create --resource-group $appname --name $namespace
+
+$IDETITY_CLIENT_ID=az identity show -g $appname -n $namespace --query clientId -otsv
+
+az keyvault set-policy -n $appname --secret-permissions get list --spn $IDETITY_CLIENT_ID
+```
+
+## Establish the federated identity credential 
+```powershell
+$appname="harvesthelper"
+
+$AKS_OIDC_ISSUER=az aks show -n $appname -g $appname --query "oidcIssuerProfile.issuerUrl" -otsv
+
+az identity federated-credential create --name $namespace --identity-name $namespace --resource-group $appname --issuer $AKS_OIDC_ISSUER --subject "system:serviceaccount:${namespace}:${namespace}-serviceaccount"
+```
