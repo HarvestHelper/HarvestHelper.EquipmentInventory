@@ -80,3 +80,16 @@ $AKS_OIDC_ISSUER=az aks show -n $appname -g $appname --query "oidcIssuerProfile.
 
 az identity federated-credential create --name $namespace --identity-name $namespace --resource-group $appname --issuer $AKS_OIDC_ISSUER --subject "system:serviceaccount:${namespace}:${namespace}-serviceaccount"
 ```
+
+### install the helm chart
+```powershell
+$namespace="equipmentinventory"
+$appname="harvesthelper"
+$helmUser=[guid]::Empty.Guid
+$helmPassword=az acr login --name $appname --expose-token --output tsv --query accessToken 
+
+helm registry login "$appname.azurecr.io" --username $helmUser --password $helmPassword
+
+$chartVersion="0.1.0"
+helm upgrade equipmentinventory-service oci://$appname.azurecr.io/helm/microservice --version $chartVersion -f .\helm\values.yaml -n $namespace --install
+```
