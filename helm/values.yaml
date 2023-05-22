@@ -15,4 +15,4 @@ resources:
 container:
   port: 5004
 
-identityClientId: f7610b14-5c9b-4830-8fd1-e0909e823f9b
+identityClientId: 62e2f026-1aba-488f-87e3-f5487e4e0125
