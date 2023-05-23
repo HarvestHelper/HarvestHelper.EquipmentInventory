@@ -1,0 +1,39 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# 
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarvestHelper.EquipmentInventory.Contracts", "src\HarvestHelper.EquipmentInventory.Contracts\HarvestHelper.EquipmentInventory.Contracts.csproj", "{C3C357AD-BC33-4B39-B6C3-FD5E5FD25A11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarvestHelper.EquipmentInventory.Service", "src\HarvestHelper.EquipmentInventory.Service\HarvestHelper.EquipmentInventory.Service.csproj", "{3E9F336E-6300-4C3C-A562-84CCE2571E97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C503BCE6-24DA-42B9-8A0A-32986CAA79A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarvestHelper.EquipmentInventory.Tests", "src\HarvestHelper.EquipmentInventory.Tests\HarvestHelper.EquipmentInventory.Tests.csproj", "{DAE20CC6-9BCD-4FD3-9A63-46EC252E952C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3C357AD-BC33-4B39-B6C3-FD5E5FD25A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C357AD-BC33-4B39-B6C3-FD5E5FD25A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C357AD-BC33-4B39-B6C3-FD5E5FD25A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C357AD-BC33-4B39-B6C3-FD5E5FD25A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9F336E-6300-4C3C-A562-84CCE2571E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9F336E-6300-4C3C-A562-84CCE2571E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9F336E-6300-4C3C-A562-84CCE2571E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9F336E-6300-4C3C-A562-84CCE2571E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE20CC6-9BCD-4FD3-9A63-46EC252E952C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE20CC6-9BCD-4FD3-9A63-46EC252E952C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE20CC6-9BCD-4FD3-9A63-46EC252E952C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE20CC6-9BCD-4FD3-9A63-46EC252E952C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DAE20CC6-9BCD-4FD3-9A63-46EC252E952C} = {C503BCE6-24DA-42B9-8A0A-32986CAA79A3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A90CE85-8D53-4DE8-A4A3-0F18CB9CD081}
+	EndGlobalSection
+EndGlobal
