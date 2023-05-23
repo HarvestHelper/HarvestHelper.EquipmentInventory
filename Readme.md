@@ -93,3 +93,11 @@ helm registry login "$appname.azurecr.io" --username $helmUser --password $helmP
 $chartVersion="0.1.0"
 helm upgrade equipmentinventory-service oci://$appname.azurecr.io/helm/microservice --version $chartVersion -f .\helm\values.yaml -n $namespace --install
 ```
+
+### Run SonarQube
+```powershell
+$sonartoken="[SONAR_TOKEN]"
+dotnet sonarscanner begin /k:"HarvestHelper.EquipmentInventory" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token=$sonartoken
+dotnet build
+dotnet sonarscanner end /d:sonar.token=$sonartoken
+```
