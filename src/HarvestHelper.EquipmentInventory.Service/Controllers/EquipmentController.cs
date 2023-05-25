@@ -30,16 +30,16 @@ namespace Play.Inventory.Service.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<EquipmentInventoryItemDto>>> GetAsync(Guid farmId)
+        public async Task<ActionResult<IEnumerable<EquipmentInventoryItemDto>>> GetAsync(Guid userId)
         {
-            if (farmId == Guid.Empty)
+            if (userId == Guid.Empty)
             {
                 return BadRequest();
             }
 
             var currentUserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-            if (Guid.Parse(currentUserId) != farmId)
+            if (Guid.Parse(currentUserId) != userId)
             {
                 if(!User.IsInRole(AdminRole))
                 {
@@ -47,7 +47,7 @@ namespace Play.Inventory.Service.Controllers
                 }
             }
 
-            var equipmentInventoryItemEntities = await equipmentInventoryItemsRepository.GetAllAsync(equipment => equipment.FarmId == farmId);
+            var equipmentInventoryItemEntities = await equipmentInventoryItemsRepository.GetAllAsync(equipment => equipment.UserId == userId);
             var equipmentInventoryItemIds = equipmentInventoryItemEntities.Select(equipment => equipment.EquipmentItemId);
             var equipmentItemEntities = await equipmentItemsRepository.GetAllAsync(equipment => equipmentInventoryItemIds.Contains(equipment.Id));
 
@@ -65,14 +65,14 @@ namespace Play.Inventory.Service.Controllers
         public async Task<ActionResult> PostAsync(GrantEquipmentDto grantEquipmentDto)
         {
             var equipmentInventoryItem = await equipmentInventoryItemsRepository.GetAsync(
-                equipment => equipment.FarmId == grantEquipmentDto.FarmId && equipment.EquipmentItemId == grantEquipmentDto.EquipmentItemId);
+                equipment => equipment.UserId == grantEquipmentDto.UserId && equipment.EquipmentItemId == grantEquipmentDto.EquipmentItemId);
 
             if (equipmentInventoryItem == null)
             {
                 equipmentInventoryItem = new EquipmentInventoryItem
                 {
                     EquipmentItemId = grantEquipmentDto.EquipmentItemId,
-                    FarmId = grantEquipmentDto.FarmId,
+                    UserId = grantEquipmentDto.UserId,
                     AcquiredDate = DateTimeOffset.UtcNow
                 };
 

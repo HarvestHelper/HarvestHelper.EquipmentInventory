@@ -7,7 +7,7 @@ namespace HarvestHelper.EquipmentInventory.Service.Entities
     {
         public Guid Id { get; set; }
 
-        public Guid FarmId { get; set; }
+        public Guid UserId { get; set; }
 
         public Guid EquipmentItemId { get; set; }
 

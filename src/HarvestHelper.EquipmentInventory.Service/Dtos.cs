@@ -2,7 +2,7 @@ using System;
 
 namespace HarvestHelper.EquipmentInventory.Service.Dtos
 {
-    public record GrantEquipmentDto(Guid FarmId, Guid EquipmentItemId);
+    public record GrantEquipmentDto(Guid UserId, Guid EquipmentItemId);
 
     public record EquipmentInventoryItemDto(Guid EquipmentItemId, string Name, DateTimeOffset AcquiredDate);
 

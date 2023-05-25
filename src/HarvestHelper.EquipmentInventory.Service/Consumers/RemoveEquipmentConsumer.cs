@@ -31,7 +31,7 @@ namespace HarvestHelper.EquipmentInventory.Service.Consumers
             }
 
             var equipmentInventoryItem = await equipmentInventoryItemsRepository.GetAsync(
-                equipment => equipment.FarmId == message.FarmId && equipment.EquipmentItemId == message.EquipmentItemId);
+                equipment => equipment.UserId == message.UserId && equipment.EquipmentItemId == message.EquipmentItemId);
 
             if (equipmentInventoryItem != null)
             {
