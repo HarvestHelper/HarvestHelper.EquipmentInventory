@@ -18,7 +18,6 @@ namespace Play.Inventory.Service.Controllers
     public class ItemsController : ControllerBase
     {
         private const string AdminRole = "Admin";
-
         private readonly IRepository<EquipmentInventoryItem> equipmentInventoryItemsRepository;
         private readonly IRepository<EquipmentItem> equipmentItemsRepository;
 
