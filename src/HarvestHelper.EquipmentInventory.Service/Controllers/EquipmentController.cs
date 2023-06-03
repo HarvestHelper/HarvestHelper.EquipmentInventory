@@ -11,7 +11,7 @@ using HarvestHelper.EquipmentInventory.Service.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Play.Inventory.Service.Controllers
+namespace HarvestHelper.Inventory.Service.Controllers
 {
     [ApiController]
     [Route("equipmentInventory")]
