@@ -34,13 +34,35 @@ namespace HarvestHelper.EquipmentInventory.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            serviceSettings = Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+
             services.AddMongo()
                     .AddMongoRepository<EquipmentInventoryItem>("equipmentinventoryitems")
                     .AddMongoRepository<EquipmentItem>("equipmentitems")
                     .AddMassTransitWithMessageBroker(Configuration)
                     .AddJwtBearerAuthentication();
 
-            services.AddControllers();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.Read, policy =>
+                {
+                    policy.RequireRole("Admin");
+                    policy.RequireClaim("scope", "equipmentInventory.fullaccess", "equipmentInventory.readaccess");
+                });
+
+                options.AddPolicy(Policies.Write, policy =>
+                {
+                    policy.RequireRole("Admin");
+                    policy.RequireClaim("scope", "equipmentInventory.fullaccess", "equipmentInventory.writeaccess");
+                });
+            });
+
+            services.AddControllers(options =>
+            {
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HarvestHelper.EquipmentInventory.Service", Version = "v1" });
