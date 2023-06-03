@@ -11,18 +11,19 @@ using HarvestHelper.Common.MassTransit;
 using HarvestHelper.Common.MongoDB;
 using HarvestHelper.EquipmentInventory.Service.Clients;
 using HarvestHelper.EquipmentInventory.Service.Entities;
-using Polly;
-using Polly.Timeout;
 using HarvestHelper.Common.Identity;
 using GreenPipes;
 using HarvestHelper.EquipmentInventory.Service.Exceptions;
 using HarvestHelper.Common.HealthChecks;
+using HarvestHelper.Common.Settings;
 
 namespace HarvestHelper.EquipmentInventory.Service
 {
     public class Startup
     {
         private const string AllowedOriginSetting = "AllowedOrigin";
+
+        private ServiceSettings serviceSettings;
         
         public Startup(IConfiguration configuration)
         {
